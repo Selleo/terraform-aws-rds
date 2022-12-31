@@ -39,4 +39,8 @@ module "db" {
   identifier = random_id.this.hex
   db_name    = "example"
   db_user    = "api"
+
+  # for easy testing:
+  deletion_protection = false
+  apply_immediately   = true
 }
