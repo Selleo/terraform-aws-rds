@@ -1,6 +1,6 @@
-# Terraform RENAME_ME module
+# Terraform RDS module
 
-TODO
+Collection of RDS modules.
 
 <!-- BEGIN_TF_DOCS -->
 
