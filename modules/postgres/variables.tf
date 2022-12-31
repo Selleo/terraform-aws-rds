@@ -12,9 +12,9 @@ variable "vpc" {
   description = "VPC configuration (id, CIDR that has access to RDS and subnet)."
 
   type = object({
-    id     = string
-    cidr   = string
-    subnet = string
+    id           = string
+    cidr         = string
+    subnet_group = string
   })
 }
 
@@ -91,7 +91,7 @@ variable "parameter_group_family" {
   default = "postgres14"
 }
 
-variable "version" {
+variable "engine_version" {
   description = "Postgres version."
 
   type    = string
@@ -144,7 +144,11 @@ variable "performance_insights" {
   description = "Performance insights configuration. Retention period valid values are 7, 731 (2 years) or a multiple of 31."
 
   type = object({
-    retention_period = 14
-    kms_key_id       = null
+    retention_period = number
+    kms_key_id       = string
   })
+  default = {
+    retention_period = 62
+    kms_key_id       = null
+  }
 }

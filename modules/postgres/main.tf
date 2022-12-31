@@ -38,28 +38,28 @@ resource "aws_db_parameter_group" "this" {
     create_before_destroy = true
   }
 
-  tags = merge(local.tags, { "aws.kind" = "database" })
+  tags = merge(local.tags, { "resource.group" = "database" })
 }
 
 resource "aws_cloudwatch_log_group" "this_postgresql" {
   name              = "/aws/rds/instance/${var.identifier}/postgresql"
   retention_in_days = var.logs_retention_in_days
 
-  tags = merge(local.tags, { "aws.kind" = "log" })
+  tags = merge(local.tags, { "resource.group" = "log" })
 }
 
 resource "aws_cloudwatch_log_group" "this_upgrade" {
   name              = "/aws/rds/instance/${var.identifier}/upgrade"
   retention_in_days = var.logs_retention_in_days
 
-  tags = merge(local.tags, { "aws.kind" = "log" })
+  tags = merge(local.tags, { "resource.group" = "log" })
 }
 
 resource "aws_db_instance" "this" {
   identifier = var.identifier
 
   engine         = "postgres"
-  engine_version = var.version
+  engine_version = var.engine_version
 
   instance_class        = var.instance_class
   allocated_storage     = var.allocated_storage
@@ -72,7 +72,7 @@ resource "aws_db_instance" "this" {
   port     = local.db_port
 
   vpc_security_group_ids = [module.this_sg.security_group_id]
-  db_subnet_group_name   = var.vpc.subnet
+  db_subnet_group_name   = var.vpc.subnet_group
   parameter_group_name   = aws_db_parameter_group.this.id
 
   multi_az            = var.multi_az
@@ -98,7 +98,7 @@ resource "aws_db_instance" "this" {
   deletion_protection      = var.deletion_protection
   delete_automated_backups = true
 
-  tags = merge(local.tags, { "aws.kind" = "database" })
+  tags = merge(local.tags, { "resource.group" = "database" })
 
   depends_on = [
     aws_cloudwatch_log_group.this_upgrade,
@@ -125,5 +125,5 @@ module "this_sg" {
     },
   ]
 
-  tags = merge(local.tags, { "aws.kind" = "network" })
+  tags = merge(local.tags, { "resource.group" = "network" })
 }

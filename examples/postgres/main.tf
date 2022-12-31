@@ -8,7 +8,7 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "3.18.1"
 
-  name  = random_id.this.hex
+  name = random_id.this.hex
   cidr = "10.0.0.0/16"
 
   azs              = ["eu-central-1a", "eu-central-1b"]
@@ -19,4 +19,24 @@ module "vpc" {
   single_nat_gateway = true
   enable_nat_gateway = false
   enable_vpn_gateway = false
+}
+
+module "db" {
+  source = "../../modules/postgres"
+
+  context = {
+    namespace = "selleo"
+    stage     = "dev"
+    name      = "example"
+  }
+
+  vpc = {
+    id           = module.vpc.vpc_id
+    cidr         = module.vpc.vpc_cidr_block # whole CIDR will have access to RDS
+    subnet_group = module.vpc.database_subnet_group
+  }
+
+  identifier = random_id.this.hex
+  db_name    = "example"
+  db_user    = "api"
 }
