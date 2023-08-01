@@ -17,8 +17,8 @@ locals {
 }
 
 resource "random_id" "this" {
-  byte_length = 4
-  prefix      = var.identifier
+  byte_length = 2
+  prefix      = "${var.identifier}-"
 }
 
 resource "random_password" "this" {
