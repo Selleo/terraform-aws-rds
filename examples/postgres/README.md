@@ -22,7 +22,7 @@ TODO
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_db"></a> [db](#module\_db) | ../../modules/postgres | n/a |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | 3.18.1 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 4.0 |
 
 ## Resources
 

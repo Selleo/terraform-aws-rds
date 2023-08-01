@@ -13,6 +13,12 @@ locals {
   db_host = aws_db_instance.this.address
   db_pass = random_password.this.result
   db_url  = "postgres://${local.db_user}:${local.db_pass}@${local.db_host}:${local.db_port}/${local.db_name}"
+  id      = random_id.this.hex
+}
+
+resource "random_id" "this" {
+  byte_length = 4
+  prefix      = var.identifier
 }
 
 resource "random_password" "this" {
@@ -21,7 +27,7 @@ resource "random_password" "this" {
 }
 
 resource "aws_db_parameter_group" "this" {
-  name   = var.identifier
+  name   = local.id
   family = var.parameter_group_family
 
   parameter {
@@ -42,21 +48,21 @@ resource "aws_db_parameter_group" "this" {
 }
 
 resource "aws_cloudwatch_log_group" "this_postgresql" {
-  name              = "/aws/rds/instance/${var.identifier}/postgresql"
+  name              = "/aws/rds/instance/${local.id}/postgresql"
   retention_in_days = var.logs_retention_in_days
 
   tags = merge(local.tags, { "resource.group" = "log" })
 }
 
 resource "aws_cloudwatch_log_group" "this_upgrade" {
-  name              = "/aws/rds/instance/${var.identifier}/upgrade"
+  name              = "/aws/rds/instance/${local.id}/upgrade"
   retention_in_days = var.logs_retention_in_days
 
   tags = merge(local.tags, { "resource.group" = "log" })
 }
 
 resource "aws_db_instance" "this" {
-  identifier = var.identifier
+  identifier = local.id
 
   engine         = "postgres"
   engine_version = var.engine_version
@@ -71,7 +77,7 @@ resource "aws_db_instance" "this" {
   password = local.db_pass
   port     = local.db_port
 
-  vpc_security_group_ids = [module.this_sg.security_group_id]
+  vpc_security_group_ids = [aws_security_group.this.id]
   db_subnet_group_name   = var.vpc.subnet_group
   parameter_group_name   = aws_db_parameter_group.this.id
 
@@ -106,24 +112,21 @@ resource "aws_db_instance" "this" {
   ]
 }
 
-module "this_sg" {
-  source  = "terraform-aws-modules/security-group/aws"
-  version = "~> 4.0"
-
-  name        = var.identifier
+resource "aws_security_group" "this" {
+  name        = "${local.id}-rds"
   description = "Allow RDS access from within VPC (${var.identifier})"
   vpc_id      = var.vpc.id
 
-  # ingress
-  ingress_with_cidr_blocks = [
-    {
-      from_port   = var.port
-      to_port     = var.port
-      protocol    = "tcp"
-      description = "PostgreSQL access from within VPC"
-      cidr_blocks = var.vpc.cidr
-    },
-  ]
-
   tags = merge(local.tags, { "resource.group" = "network" })
+}
+
+resource "aws_security_group_rule" "ingress_with_cidr_blocks" {
+  security_group_id = aws_security_group.this.id
+  type              = "ingress"
+  description       = "PostgreSQL access from within VPC"
+
+  from_port   = var.port
+  to_port     = var.port
+  protocol    = "tcp"
+  cidr_blocks = [var.vpc.cidr]
 }

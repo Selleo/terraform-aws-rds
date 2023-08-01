@@ -14,12 +14,6 @@
 | <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | ~> 3.0 |
 
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_this_sg"></a> [this\_sg](#module\_this\_sg) | terraform-aws-modules/security-group/aws | ~> 4.0 |
-
 ## Resources
 
 | Name | Type |
@@ -28,6 +22,9 @@
 | [aws_cloudwatch_log_group.this_upgrade](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_db_instance.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_instance) | resource |
 | [aws_db_parameter_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/db_parameter_group) | resource |
+| [aws_security_group.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
+| [aws_security_group_rule.ingress_with_cidr_blocks](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) | resource |
+| [random_id.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [random_password.this](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
 
 ## Inputs
