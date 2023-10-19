@@ -152,3 +152,9 @@ variable "performance_insights" {
     kms_key_id       = null
   }
 }
+
+variable "snapshot_identifier" {
+  description = "Snapshot identifier to restore from."
+  type        = string
+  default     = null
+}

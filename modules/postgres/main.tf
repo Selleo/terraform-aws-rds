@@ -91,6 +91,7 @@ resource "aws_db_instance" "this" {
 
   copy_tags_to_snapshot = true
   skip_final_snapshot   = true
+  snapshot_identifier   = var.snapshot_identifier
 
   performance_insights_enabled          = var.performance_insights != null
   performance_insights_retention_period = try(var.performance_insights.retention_period, 7)
