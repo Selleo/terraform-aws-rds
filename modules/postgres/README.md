@@ -52,6 +52,7 @@
 | <a name="input_performance_insights"></a> [performance\_insights](#input\_performance\_insights) | Performance insights configuration. Retention period valid values are 7, 731 (2 years) or a multiple of 31. | <pre>object({<br>    retention_period = number<br>    kms_key_id       = string<br>  })</pre> | <pre>{<br>  "kms_key_id": null,<br>  "retention_period": 62<br>}</pre> | no |
 | <a name="input_port"></a> [port](#input\_port) | Database port | `number` | `5432` | no |
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | DB publicly accessible | `bool` | `false` | no |
+| <a name="input_snapshot_identifier"></a> [snapshot\_identifier](#input\_snapshot\_identifier) | Snapshot identifier to restore from. | `string` | `null` | no |
 | <a name="input_vpc"></a> [vpc](#input\_vpc) | VPC configuration (id, CIDR that has access to RDS and subnet). | <pre>object({<br>    id           = string<br>    cidr         = string<br>    subnet_group = string<br>  })</pre> | n/a | yes |
 
 ## Outputs
