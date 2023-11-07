@@ -5,6 +5,18 @@ output "database_url" {
   value = local.db_url
 }
 
+output "database_host" {
+  description = "Database host (format: my-database-instance-identifier.xxxxxxxxxxxxx.us-east-1.rds.amazonaws.com"
+
+  value = local.db_host
+}
+
+output "database_port" {
+  description = "Database port (format: 5432)"
+
+  value = local.db_port
+}
+
 output "connection_envs" {
   description = "PostgreSQL connection environment variables"
   sensitive   = true
