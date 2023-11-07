@@ -60,5 +60,7 @@
 | Name | Description |
 |------|-------------|
 | <a name="output_connection_envs"></a> [connection\_envs](#output\_connection\_envs) | PostgreSQL connection environment variables |
-| <a name="output_database_url"></a> [database\_url](#output\_database\_url) | Database URL (format: postgres://..:5432/...) |
+| <a name="output_host"></a> [host](#output\_host) | Database host (format: my-database-instance-identifier.xxxxxxxxxxxxx.us-east-1.rds.amazonaws.com |
+| <a name="output_port"></a> [port](#output\_port) | Database port (format: 5432) |
+| <a name="output_url"></a> [url](#output\_url) | Database URL (format: postgres://..:5432/...) |
 <!-- END_TF_DOCS -->
