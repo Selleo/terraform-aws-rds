@@ -40,14 +40,15 @@
 | <a name="input_db_name"></a> [db\_name](#input\_db\_name) | Database name. | `string` | n/a | yes |
 | <a name="input_db_user"></a> [db\_user](#input\_db\_user) | Database user. | `string` | n/a | yes |
 | <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Deletion protection | `bool` | `true` | no |
-| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Postgres version. | `string` | `"14.5"` | no |
+| <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Postgres version. | `string` | n/a | yes |
 | <a name="input_identifier"></a> [identifier](#input\_identifier) | RDS identifier. | `string` | n/a | yes |
 | <a name="input_instance_class"></a> [instance\_class](#input\_instance\_class) | Instance class. | `string` | `"db.t4g.micro"` | no |
 | <a name="input_logs_retention_in_days"></a> [logs\_retention\_in\_days](#input\_logs\_retention\_in\_days) | Postgres and upgrade logs retention counted in days. | `number` | `60` | no |
 | <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | Maintenance window | `string` | `"Mon:00:00-Mon:02:00"` | no |
 | <a name="input_max_allocated_storage"></a> [max\_allocated\_storage](#input\_max\_allocated\_storage) | Max allocated storage size (GiB) | `number` | `100` | no |
 | <a name="input_multi_az"></a> [multi\_az](#input\_multi\_az) | Enable multi AZ | `bool` | `true` | no |
-| <a name="input_parameter_group_family"></a> [parameter\_group\_family](#input\_parameter\_group\_family) | Parameter group family. | `string` | `"postgres14"` | no |
+| <a name="input_parameter_group_family"></a> [parameter\_group\_family](#input\_parameter\_group\_family) | Parameter group family. | `string` | n/a | yes |
+| <a name="input_parameters"></a> [parameters](#input\_parameters) | Configuration for parameters group | `map(string)` | `{}` | no |
 | <a name="input_password_length"></a> [password\_length](#input\_password\_length) | Password length for random generator. | `number` | `16` | no |
 | <a name="input_performance_insights"></a> [performance\_insights](#input\_performance\_insights) | Performance insights configuration. Retention period valid values are 7, 731 (2 years) or a multiple of 31. | <pre>object({<br>    retention_period = number<br>    kms_key_id       = string<br>  })</pre> | <pre>{<br>  "kms_key_id": null,<br>  "retention_period": 62<br>}</pre> | no |
 | <a name="input_port"></a> [port](#input\_port) | Database port | `number` | `5432` | no |
