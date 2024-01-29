@@ -36,6 +36,12 @@ module "db" {
   db_name    = "example"
   db_user    = "api"
 
+  parameters = {
+    "rds.force_ssl" = "1"
+  }
+  parameter_group_family = "postgres16"
+  engine_version         = "16.1"
+
   # for easy testing:
   deletion_protection = false
   apply_immediately   = true

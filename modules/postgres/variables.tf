@@ -86,16 +86,12 @@ variable "deletion_protection" {
 
 variable "parameter_group_family" {
   description = "Parameter group family."
-
-  type    = string
-  default = "postgres14"
+  type        = string
 }
 
 variable "engine_version" {
   description = "Postgres version."
-
-  type    = string
-  default = "14.5"
+  type        = string
 }
 
 variable "allocated_storage" {
@@ -157,4 +153,10 @@ variable "snapshot_identifier" {
   description = "Snapshot identifier to restore from."
   type        = string
   default     = null
+}
+
+variable "parameters" {
+  type        = map(string)
+  description = "Configuration for parameters group"
+  default     = {}
 }
